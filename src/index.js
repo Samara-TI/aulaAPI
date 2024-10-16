@@ -11,11 +11,18 @@ const cors = require(`cors`);
 
 const path = require(`path`);
 
-
 const routes = require(`./routes/routes`);
 
 
 const db = require(`./db/db`);//modulo de conexao com o banco de dados
+
+//utilizado para segurança
+const corsOption = {
+    origin:['http://localhost:3333','https://meudominio.com'],//lista de origens permitidas
+    methods: 'GET,POST,PUT,DELETE',//MÉTODO HTTP PERMITIDOS
+    credentials: true,//permite o envio de cookies
+};
+
 //inicializacao do app
 const app = express();
 
@@ -23,7 +30,7 @@ const app = express();
 
 app.use(helmet());// protege a aplicacao com header de segurança(protecao)
 
-app.use(cors());// Habilita o cors(protecao)
+app.use(cors(corsOption));// Habilita o cors(protecao)
 
 app.use(morgan('dev')); // loga as requisicoes no console(mostra o tempo q o usuario ficou,em q site , resumindo, guarda informaçoes)
 
